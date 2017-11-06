@@ -21,13 +21,12 @@ public class DataConverter {
 		
 	}
 	
-	public <Any> Any convert(JSONObject doc, Class className, Object ob) {
+	@SuppressWarnings("unchecked")
+	public <Any> Any convert(JSONObject doc, Class<?> className, Object ob) {
 		try {
-			
 			BeanInfo beaninfo = Introspector.getBeanInfo(className);
 			PropertyDescriptor pds[] = beaninfo.getPropertyDescriptors();
 			Method setterMethod = null;
-			
 			for (PropertyDescriptor pd : pds) {
 				try {
 					setterMethod = pd.getWriteMethod();
@@ -35,17 +34,13 @@ public class DataConverter {
 						continue;
 					else
 						setterMethod.invoke(ob, doc.getString(pd.getDisplayName()));
-					System.err.println("pd.getDisplayName():" + pd.getDisplayName());
 				}
 				catch (Exception e) {
-					//e.printStackTrace();
+					
 				}
-				
 			}
 		}
-		catch (Exception e) {
-			//e.printStackTrace();
-		}
+		catch (Exception e) {}
 		return (Any) ob;
 	}
 }
