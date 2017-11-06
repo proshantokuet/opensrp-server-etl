@@ -42,7 +42,7 @@ public class BNFConverterTest {
 	
 	@Test
 	public void saveTest() throws ParseException, JSONException {
-		
+		System.err.println("kkkk");
 		markerEntity = markerService.findById(1);
 		ViewResult vr = sourceDBRepository.allData(0);
 		
@@ -50,7 +50,7 @@ public class BNFConverterTest {
 		System.err.println("okkk" + rows.size());
 		for (Row row : rows) {
 			JSONObject jsonData = new JSONObject(row.getValue());
-			long currentDocumentTimeStamp = Long.parseLong(jsonData.getString("timeStamp"));
+			long currentDocumentTimeStamp = Long.parseLong(jsonData.getString("updatedTimeStamp"));
 			
 			transmissionServiceFactory.getTransmissionType(jsonData.getString("type")).convertDataJsonToEntity(jsonData);
 			if (markerEntity.getTimeStamp() < currentDocumentTimeStamp) {
