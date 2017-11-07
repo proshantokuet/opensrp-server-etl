@@ -1,10 +1,13 @@
 package org.opensrp.etl.data.converter;
 
+import javax.persistence.TemporalType;
+
 import org.json.JSONObject;
 import org.opensrp.etl.entity.HouseholdEntity;
 import org.opensrp.etl.interfaces.DataConverterService;
 import org.opensrp.etl.service.ExceptionService;
 import org.opensrp.etl.service.HouseholdService;
+import org.opensrp.etl.util.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class HouseholdDataConverterService implements DataConverterService {
 	
 	public HouseholdDataConverterService() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	@Autowired
@@ -29,11 +32,15 @@ public class HouseholdDataConverterService implements DataConverterService {
 	
 	@Override
 	public void convertToEntityAndSave(JSONObject doc) {
-		Class<HouseholdEntity> c = HouseholdEntity.class;
-		Object ob = householdEntity;
+		Class<HouseholdEntity> className = HouseholdEntity.class;
+		Object object = householdEntity;
+		householdEntity = (HouseholdEntity) dataConverter.convert(doc, className, object);
+		try {
+			householdService.save(householdEntity);
+		}
+		catch (Exception e) {
+			exceptionService.generatedEntityAndSave(doc, e.fillInStackTrace().toString(), Keys.HOUSEHOLD.name());
+		}
 		
-		householdEntity = (HouseholdEntity) dataConverter.convert(doc, c, ob);
-		householdService.save(householdEntity);
 	}
-	
 }

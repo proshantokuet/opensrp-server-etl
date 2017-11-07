@@ -7,28 +7,28 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.opensrp.etl.entity.ElcoEntity;
+import org.opensrp.etl.entity.MemberEntity;
 import org.opensrp.etl.interfaces.RegisterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ElcoRepository implements RegisterRepository<ElcoEntity> {
+public class MemberRepository implements RegisterRepository<MemberEntity> {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public ElcoRepository() {
+	public MemberRepository() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void addElco(ElcoEntity p) {
+	public void addElco(MemberEntity p) {
 		getSession().save(p);
 		
 	}
 	
 	@Override
-	public void save(ElcoEntity elcoEntity) {
+	public void save(MemberEntity elcoEntity) {
 		
 		try {
 			getSession().save(elcoEntity);
@@ -42,8 +42,8 @@ public class ElcoRepository implements RegisterRepository<ElcoEntity> {
 	}
 	
 	@Override
-	public boolean delete(ElcoEntity elcoEntity) {
-		Query query = getSession().createQuery("delete ElcoEntity where id = :ID");
+	public boolean delete(MemberEntity elcoEntity) {
+		Query query = getSession().createQuery("delete MemberEntity where id = :ID");
 		query.setParameter("ID", elcoEntity.getId());
 		int result = query.executeUpdate();
 		
@@ -56,13 +56,13 @@ public class ElcoRepository implements RegisterRepository<ElcoEntity> {
 	}
 	
 	@Override
-	public void update(ElcoEntity t) {
+	public void update(MemberEntity t) {
 		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
-	public ElcoEntity findById(int id) {
+	public MemberEntity findById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -73,11 +73,11 @@ public class ElcoRepository implements RegisterRepository<ElcoEntity> {
 	}
 	
 	@Override
-	public ElcoEntity findByCaseId(String caseId) {
-		Criteria listElcoCr = getSession().createCriteria(ElcoEntity.class);
+	public MemberEntity findByCaseId(String caseId) {
+		Criteria listElcoCr = getSession().createCriteria(MemberEntity.class);
 		listElcoCr.add(Restrictions.eq("caseId", caseId));
-		List<ElcoEntity> listElco = listElcoCr.list();
+		List<MemberEntity> listElco = listElcoCr.list();
 		
-		return listElco.size() > 0 ? (ElcoEntity) listElco.get(0) : null;
+		return listElco.size() > 0 ? (MemberEntity) listElco.get(0) : null;
 	}
 }

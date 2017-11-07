@@ -38,17 +38,17 @@
         <property name="annotatedClasses">
             <list>
                 <value>org.opensrp.etl.entity.HouseholdEntity</value>
-                <value>org.opensrp.etl.entity.ElcoEntity</value>
+                <value>org.opensrp.etl.entity.MemberEntity</value>
                 <value>org.opensrp.etl.entity.ActionEntity</value>
                 <value>org.opensrp.etl.entity.MotherEntity</value>
                 <value>org.opensrp.etl.entity.ANCEntity</value>
                  <value>org.opensrp.etl.entity.PNCEntity</value>                 
                 <value>org.opensrp.etl.entity.ChildEntity</value>
-                <value>org.opensrp.etl.entity.MarkerEntity</value> 
-                <value>org.opensrp.etl.entity.PSRFEntity</value>  
-                <value>org.opensrp.etl.entity.BNFEntity</value>
-                <value>org.opensrp.etl.entity.ENCCEntity</value> 
-                <value>org.opensrp.etl.entity.ExceptionEntity</value>              
+                <value>org.opensrp.etl.entity.MarkerEntity</value>   
+                <value>org.opensrp.etl.entity.PSRFEntity</value> 
+                <value>org.opensrp.etl.entity.BNFEntity</value>   
+                <value>org.opensrp.etl.entity.ENCCEntity</value>  
+                <value>org.opensrp.etl.entity.ExceptionEntity</value>                
             </list>
         </property>
         <property name="hibernateProperties">
@@ -56,7 +56,6 @@
                 <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect
                 </prop>
                 <prop key="hibernate.show_sql">true</prop>
-                 <prop key="hibernate.show_sql">false</prop>
                <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
@@ -66,7 +65,7 @@
  <bean name="transmissionServiceFactory" class="org.opensrp.etl.transmission.service.TransmissionServiceFactory"/>
   
 <bean name="householdService" class="org.opensrp.etl.service.HouseholdService"/>    
-<bean name="elcoService" class="org.opensrp.etl.service.ElcoService"/>
+<bean name="memberService" class="org.opensrp.etl.service.MemberService"/>
 <bean name="psrfService" class="org.opensrp.etl.service.PSRFService"/>
 <bean name="motherService" class="org.opensrp.etl.service.MotherService"/>
 <bean name="ancService" class="org.opensrp.etl.service.ANCService"/>
@@ -75,11 +74,10 @@
 <bean name="childService" class="org.opensrp.etl.service.ChildService"/>
 <bean name="enccService" class="org.opensrp.etl.service.ENCCService"/>
 <bean name="actionService" class="org.opensrp.etl.service.ActionService"/>
-<bean name="exceptionService" class="org.opensrp.etl.service.ExceptionService"/>
 
 
 <bean name="householdRepository" class="org.opensrp.etl.repository.HouseholdRepository"/>
-<bean name="elcoRepository" class="org.opensrp.etl.repository.ElcoRepository"/>
+<bean name="memberRepository" class="org.opensrp.etl.repository.MemberRepository"/>
 <bean name="psrfRepository" class="org.opensrp.etl.repository.PSRFRepository"/> 
 <bean name="motherRepository" class="org.opensrp.etl.repository.MotherRepository"/>
 <bean name="ancRepository" class="org.opensrp.etl.repository.ANCRepository"/>
@@ -90,9 +88,8 @@
 <bean name="actionRepository" class="org.opensrp.etl.repository.ActionRepository"/>
 <bean name="exceptionRepository" class="org.opensrp.etl.repository.ExceptionRepository"/>
 
-
 <bean name="householdTransmissionService" class="org.opensrp.etl.transmission.service.HouseholdTransmissionService"/>
-<bean name="elcoTransmissionService" class="org.opensrp.etl.transmission.service.ElcoTransmissionService"/>
+<bean name="memberTransmissionService" class="org.opensrp.etl.transmission.service.MemberTransmissionService"/>
 <bean name="psrfTransmissionService" class="org.opensrp.etl.transmission.service.PSRFTransmissionService"/> 
 <bean name="motherTransmissionService" class="org.opensrp.etl.transmission.service.MotherTransmissionService"/>
 <bean name="ancTransmissionService" class="org.opensrp.etl.transmission.service.ANCTransmissionService"/>
@@ -101,10 +98,10 @@
 <bean name="childTransmissionService" class="org.opensrp.etl.transmission.service.ChildTransmissionService"/>
 <bean name="enccTransmissionService" class="org.opensrp.etl.transmission.service.ENCCTransmissionService"/>
 <bean name="actionTransmissionService" class="org.opensrp.etl.transmission.service.ActionTransmissionService"/>
-
+ <bean name="exceptionService" class="org.opensrp.etl.service.ExceptionService"/>
   
 <bean name="householdDataConverterService" class="org.opensrp.etl.data.converter.HouseholdDataConverterService"/>
-<bean name="elcoDataConverterService" class="org.opensrp.etl.data.converter.ElcoDataConverterService"/>
+<bean name="memberDataConverterService" class="org.opensrp.etl.data.converter.MemberDataConverterService"/>
 <bean name="psrfDataConverterService" class="org.opensrp.etl.data.converter.PSRFDataConverterService"/> 
 <bean name="motherDataConverterService" class="org.opensrp.etl.data.converter.MotherDataConverterService"/>
 <bean name="motherToANCConverter" class="org.opensrp.etl.data.converter.MotherToANCConverter"/>
@@ -118,9 +115,8 @@
 <bean name="childToENCCConverter" class="org.opensrp.etl.data.converter.ChildToENCCConverter"/>
 <bean name="dataConverter" class="org.opensrp.etl.data.converter.DataConverter"/>
 
-
 <bean name="householdEntity" class="org.opensrp.etl.entity.HouseholdEntity"/>
-<bean name="elcoEntity" class="org.opensrp.etl.entity.ElcoEntity"/>
+<bean name="memberEntity" class="org.opensrp.etl.entity.MemberEntity"/>
 <bean name="psrfEntity" class="org.opensrp.etl.entity.PSRFEntity"/>
 <bean name="motherEntity" class="org.opensrp.etl.entity.MotherEntity"/>
 <bean name="ancEntity" class="org.opensrp.etl.entity.ANCEntity"/>
@@ -134,6 +130,7 @@
 
 <bean name="markerService" class="org.opensrp.etl.service.MarkerService"/>
 <bean name="markerRepository" class="org.opensrp.etl.repository.MarkerRepository"/>
+    
 
 <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />

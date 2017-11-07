@@ -129,7 +129,7 @@ public class PSRFEntity {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "elco_id", referencedColumnName = "id")
-	private ElcoEntity elco;
+	private MemberEntity elco;
 	
 	private String relationalId;//getting from elco
 	
@@ -493,11 +493,11 @@ public class PSRFEntity {
 		this.timeStamp = timeStamp;
 	}
 	
-	public ElcoEntity getElco() {
+	public MemberEntity getElco() {
 		return elco;
 	}
 	
-	public void setElco(ElcoEntity elco) {
+	public void setElco(MemberEntity elco) {
 		this.elco = elco;
 	}
 	

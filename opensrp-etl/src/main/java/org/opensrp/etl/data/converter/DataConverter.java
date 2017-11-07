@@ -8,21 +8,22 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
+import javax.persistence.Temporal;
+
 import org.json.JSONObject;
-import org.springframework.stereotype.Service;
+import org.opensrp.etl.util.DateUtil;
 
 /**
  * @author proshanto
  */
-@Service
+
 public class DataConverter {
 	
 	public DataConverter() {
-		
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <Any> Any convert(JSONObject doc, Class<?> className, Object ob) {
+	public <Any> Any convert(JSONObject JsonDocument, Class<?> className, Object object) {
 		try {
 			BeanInfo beaninfo = Introspector.getBeanInfo(className);
 			PropertyDescriptor pds[] = beaninfo.getPropertyDescriptors();
@@ -30,17 +31,27 @@ public class DataConverter {
 			for (PropertyDescriptor pd : pds) {
 				try {
 					setterMethod = pd.getWriteMethod();
+					String dataTypeClass = pd.getPropertyType().getName();
 					if (setterMethod == null)
 						continue;
-					else
-						setterMethod.invoke(ob, doc.getString(pd.getDisplayName()));
+					else if ("java.util.Date".equalsIgnoreCase(dataTypeClass)) {
+						Method readMethod = pd.getReadMethod();
+						Class<Temporal> c = (Class<Temporal>) Class.forName("javax.persistence.Temporal");
+						if (readMethod.isAnnotationPresent(c)) {
+							setterMethod.invoke(object, DateUtil.getDateFromString(JsonDocument, pd.getDisplayName()));
+						} else {
+							setterMethod.invoke(object, DateUtil.getDateTimeFromString(JsonDocument, pd.getDisplayName()));
+						}
+						
+					} else {
+						setterMethod.invoke(object, JsonDocument.getString(pd.getDisplayName()));
+					}
 				}
-				catch (Exception e) {
-					
-				}
+				catch (Exception e) {}
 			}
 		}
 		catch (Exception e) {}
-		return (Any) ob;
+		return (Any) object;
 	}
+	
 }
