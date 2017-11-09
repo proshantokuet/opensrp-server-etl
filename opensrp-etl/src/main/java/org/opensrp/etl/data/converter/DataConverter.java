@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 
 import org.json.JSONObject;
 import org.opensrp.etl.util.DateUtil;
+import org.opensrp.etl.util.NumbertUtil;
 
 /**
  * @author proshanto
@@ -22,8 +23,9 @@ public class DataConverter {
 	public DataConverter() {
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "unused" })
 	public <Any> Any convert(JSONObject JsonDocument, Class<?> className, Object object) {
+		String property = null;
 		try {
 			BeanInfo beaninfo = Introspector.getBeanInfo(className);
 			PropertyDescriptor pds[] = beaninfo.getPropertyDescriptors();
@@ -32,26 +34,37 @@ public class DataConverter {
 				try {
 					setterMethod = pd.getWriteMethod();
 					String dataTypeClass = pd.getPropertyType().getName();
-					if (setterMethod == null)
+					String[] properties = setterMethod.getName().split("set");
+					property = properties[1];
+					
+					if (setterMethod == null) {
 						continue;
-					else if ("java.util.Date".equalsIgnoreCase(dataTypeClass)) {
+					} else if ("java.util.Date".equalsIgnoreCase(dataTypeClass)) {
 						Method readMethod = pd.getReadMethod();
 						Class<Temporal> c = (Class<Temporal>) Class.forName("javax.persistence.Temporal");
 						if (readMethod.isAnnotationPresent(c)) {
-							setterMethod.invoke(object, DateUtil.getDateFromString(JsonDocument, pd.getDisplayName()));
+							System.err.println("P:" + property);
+							setterMethod.invoke(object, DateUtil.getDateFromString(JsonDocument, property));
 						} else {
-							setterMethod.invoke(object, DateUtil.getDateTimeFromString(JsonDocument, pd.getDisplayName()));
+							//System.err.println("PD:" + property);
+							setterMethod.invoke(object, DateUtil.getDateTimeFromString(JsonDocument, property));
 						}
 						
+					} else if ("java.lang.Integer".equalsIgnoreCase(dataTypeClass)) {
+						setterMethod.invoke(object, NumbertUtil.convertToInteger(JsonDocument.getString(property)));
+					} else if ("java.lang.Long".equalsIgnoreCase(dataTypeClass)) {
+						setterMethod.invoke(object, NumbertUtil.convertToLong(JsonDocument.getString(property)));
 					} else {
-						setterMethod.invoke(object, JsonDocument.getString(pd.getDisplayName()));
+						setterMethod.invoke(object, JsonDocument.getString(property));
 					}
 				}
-				catch (Exception e) {}
+				catch (Exception e) {
+					//System.err.println("property:" + property);
+					//e.printStackTrace();
+				}
 			}
 		}
 		catch (Exception e) {}
 		return (Any) object;
 	}
-	
 }

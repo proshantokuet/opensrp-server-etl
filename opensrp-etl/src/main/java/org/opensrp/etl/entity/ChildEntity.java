@@ -73,7 +73,7 @@ public class ChildEntity extends CommonEntity {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "mother_id", referencedColumnName = "id")
-	private MotherEntity mother;
+	private NutritionEntity mother;
 	
 	public int getId() {
 		return id;
@@ -203,11 +203,11 @@ public class ChildEntity extends CommonEntity {
 		this.relationalId = relationalId;
 	}
 	
-	public MotherEntity getMother() {
+	public NutritionEntity getMother() {
 		return mother;
 	}
 	
-	public void setMother(MotherEntity mother) {
+	public void setMother(NutritionEntity mother) {
 		this.mother = mother;
 	}
 	

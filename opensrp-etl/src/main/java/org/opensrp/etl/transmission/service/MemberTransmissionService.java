@@ -17,6 +17,7 @@ public class MemberTransmissionService implements TransmissionServices {
 	
 	@Override
 	public void convertDataJsonToEntity(JSONObject doc) throws JSONException {
+		
 		memberDataConverterService.convertToEntityAndSave(doc);
 		
 	}

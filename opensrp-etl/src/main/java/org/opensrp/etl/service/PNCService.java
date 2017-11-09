@@ -21,7 +21,7 @@ public class PNCService implements RegisterService<PNCEntity> {
 	@Transactional
 	@Override
 	public void save(PNCEntity pncEntity) {
-		PNCEntity existingpncEntity = findByCaseIdAndToday(pncEntity.getRelationalid(), pncEntity.getToday());
+		PNCEntity existingpncEntity = findByCaseIdAndName(pncEntity.getRelationalid(), pncEntity.getPncName());
 		if (existingpncEntity == null) {
 			pncRepository.save(pncEntity);
 		} else {
@@ -56,7 +56,7 @@ public class PNCService implements RegisterService<PNCEntity> {
 	}
 	
 	@Transactional
-	public PNCEntity findByCaseIdAndToday(String relationalId, Date today) {
-		return pncRepository.findByCaseIdAndToday(relationalId, today);
+	public PNCEntity findByCaseIdAndName(String relationalId, String name) {
+		return pncRepository.findByCaseIdAndName(relationalId, name);
 	}
 }

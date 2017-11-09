@@ -40,7 +40,7 @@
                 <value>org.opensrp.etl.entity.HouseholdEntity</value>
                 <value>org.opensrp.etl.entity.MemberEntity</value>
                 <value>org.opensrp.etl.entity.ActionEntity</value>
-                <value>org.opensrp.etl.entity.MotherEntity</value>
+                <value>org.opensrp.etl.entity.NutritionEntity</value>
                 <value>org.opensrp.etl.entity.ANCEntity</value>
                  <value>org.opensrp.etl.entity.PNCEntity</value>                 
                 <value>org.opensrp.etl.entity.ChildEntity</value>
@@ -67,7 +67,7 @@
 <bean name="householdService" class="org.opensrp.etl.service.HouseholdService"/>    
 <bean name="memberService" class="org.opensrp.etl.service.MemberService"/>
 <bean name="psrfService" class="org.opensrp.etl.service.PSRFService"/>
-<bean name="motherService" class="org.opensrp.etl.service.MotherService"/>
+<bean name="nutritionService" class="org.opensrp.etl.service.NutritionService"/>
 <bean name="ancService" class="org.opensrp.etl.service.ANCService"/>
 <bean name="pncService" class="org.opensrp.etl.service.PNCService"/>
 <bean name="bnfService" class="org.opensrp.etl.service.BNFService"/>
@@ -79,7 +79,7 @@
 <bean name="householdRepository" class="org.opensrp.etl.repository.HouseholdRepository"/>
 <bean name="memberRepository" class="org.opensrp.etl.repository.MemberRepository"/>
 <bean name="psrfRepository" class="org.opensrp.etl.repository.PSRFRepository"/> 
-<bean name="motherRepository" class="org.opensrp.etl.repository.MotherRepository"/>
+<bean name="nutritionRepository" class="org.opensrp.etl.repository.NutritionRepository"/>
 <bean name="ancRepository" class="org.opensrp.etl.repository.ANCRepository"/>
 <bean name="pncRepository" class="org.opensrp.etl.repository.PNCRepository"/>
 <bean name="bnfRepository" class="org.opensrp.etl.repository.BNFRepository"/>
@@ -103,7 +103,7 @@
 <bean name="householdDataConverterService" class="org.opensrp.etl.data.converter.HouseholdDataConverterService"/>
 <bean name="memberDataConverterService" class="org.opensrp.etl.data.converter.MemberDataConverterService"/>
 <bean name="psrfDataConverterService" class="org.opensrp.etl.data.converter.PSRFDataConverterService"/> 
-<bean name="motherDataConverterService" class="org.opensrp.etl.data.converter.MotherDataConverterService"/>
+<bean name="nutritionDataConverterService" class="org.opensrp.etl.data.converter.NutritionDataConverterService"/>
 <bean name="motherToANCConverter" class="org.opensrp.etl.data.converter.MotherToANCConverter"/>
 <bean name="motherToPNCConverter" class="org.opensrp.etl.data.converter.MotherToPNCConverter"/>
 <bean name="ancDataConverterService" class="org.opensrp.etl.data.converter.ANCDataConverterService"/>
@@ -113,12 +113,13 @@
 <bean name="actionDataConverterService" class="org.opensrp.etl.data.converter.ActionDataConverterService"/>
 <bean name="childDataConverterService" class="org.opensrp.etl.data.converter.ChildDataConverterService"/>
 <bean name="childToENCCConverter" class="org.opensrp.etl.data.converter.ChildToENCCConverter"/>
+
 <bean name="dataConverter" class="org.opensrp.etl.data.converter.DataConverter"/>
 
 <bean name="householdEntity" class="org.opensrp.etl.entity.HouseholdEntity"/>
 <bean name="memberEntity" class="org.opensrp.etl.entity.MemberEntity"/>
 <bean name="psrfEntity" class="org.opensrp.etl.entity.PSRFEntity"/>
-<bean name="motherEntity" class="org.opensrp.etl.entity.MotherEntity"/>
+<bean name="nutritionEntity" class="org.opensrp.etl.entity.NutritionEntity"/>
 <bean name="ancEntity" class="org.opensrp.etl.entity.ANCEntity"/>
 <bean name="pncEntity" class="org.opensrp.etl.entity.PNCEntity"/>
 <bean name="bnfEntity" class="org.opensrp.etl.entity.BNFEntity"/>
@@ -131,6 +132,7 @@
 <bean name="markerService" class="org.opensrp.etl.service.MarkerService"/>
 <bean name="markerRepository" class="org.opensrp.etl.repository.MarkerRepository"/>
     
+
 
 <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />

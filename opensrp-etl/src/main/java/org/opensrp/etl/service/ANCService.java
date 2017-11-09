@@ -21,7 +21,7 @@ public class ANCService implements RegisterService<ANCEntity> {
 	@Transactional
 	@Override
 	public void save(ANCEntity ancEntity) {
-		ANCEntity existingancEntity = findByCaseIdAndToday(ancEntity.getRelationalid(), ancEntity.getToday());
+		ANCEntity existingancEntity = findByCaseIdAndName(ancEntity.getRelationalid(), ancEntity.getAncName());
 		if (existingancEntity == null) {
 			ancRepository.save(ancEntity);
 		} else {
@@ -56,7 +56,7 @@ public class ANCService implements RegisterService<ANCEntity> {
 	}
 	
 	@Transactional
-	public ANCEntity findByCaseIdAndToday(String relationalId, Date today) {
-		return ancRepository.findByCaseIdAndToday(relationalId, today);
+	public ANCEntity findByCaseIdAndName(String relationalId, String name) {
+		return ancRepository.findByCaseIdAndName(relationalId, name);
 	}
 }

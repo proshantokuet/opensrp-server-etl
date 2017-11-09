@@ -67,10 +67,10 @@ public class PNCRepository implements RegisterRepository<PNCEntity> {
 		return listPNC.size() > 0 ? (PNCEntity) listPNC.get(0) : null;
 	}
 	
-	public PNCEntity findByCaseIdAndToday(String relationalId, Date today) {
+	public PNCEntity findByCaseIdAndName(String relationalId, String name) {
 		Criteria listPsrfCr = getSession().createCriteria(PNCEntity.class);
 		listPsrfCr.add(Restrictions.eq("relationalid", relationalId));
-		listPsrfCr.add(Restrictions.eq("today", today));
+		listPsrfCr.add(Restrictions.eq("pncName", name));
 		List<PNCEntity> listPsrf = listPsrfCr.list();
 		
 		return listPsrf.size() > 0 ? listPsrf.get(0) : null;

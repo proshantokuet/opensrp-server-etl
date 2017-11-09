@@ -28,7 +28,7 @@ public class BNFEntity {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "mother_id", referencedColumnName = "id")
-	private MotherEntity mother;
+	private NutritionEntity mother;
 	
 	@Temporal(TemporalType.DATE)
 	private Date FWBNFDATE;
@@ -123,11 +123,11 @@ public class BNFEntity {
 		this.timeStamp = timeStamp;
 	}
 	
-	public MotherEntity getMother() {
+	public NutritionEntity getMother() {
 		return mother;
 	}
 	
-	public void setMother(MotherEntity mother) {
+	public void setMother(NutritionEntity mother) {
 		this.mother = mother;
 	}
 	

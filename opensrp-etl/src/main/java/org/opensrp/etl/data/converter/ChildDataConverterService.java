@@ -3,11 +3,11 @@ package org.opensrp.etl.data.converter;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.opensrp.etl.entity.ChildEntity;
-import org.opensrp.etl.entity.MotherEntity;
+import org.opensrp.etl.entity.NutritionEntity;
 import org.opensrp.etl.interfaces.DataConverterService;
 import org.opensrp.etl.service.ChildService;
 import org.opensrp.etl.service.ExceptionService;
-import org.opensrp.etl.service.MotherService;
+import org.opensrp.etl.service.NutritionService;
 import org.opensrp.etl.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,7 +20,7 @@ public class ChildDataConverterService implements DataConverterService {
 	private ChildService childService;
 	
 	@Autowired
-	private MotherService motherService;
+	private NutritionService motherService;
 	
 	@Autowired
 	private ChildToENCCConverter childToENCCConverter;
@@ -86,7 +86,7 @@ public class ChildDataConverterService implements DataConverterService {
 			childEntity.setFWHUSNAME(details.getString("FWHUSNAME"));
 			childEntity.setIsClosed(doc.getString("isClosed"));
 			childEntity.setRelationalId(details.getString("relationalid"));
-			MotherEntity mother = motherService.findByCaseId(details.getString("relationalid"));
+			NutritionEntity mother = motherService.findByCaseId(details.getString("relationalid"));
 			
 			childService.save(childEntity);
 			childToENCCConverter.enccVisitSave(doc);
